@@ -4,7 +4,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 
 # Load trained model
-model = joblib.load('model/fraud_detection_model.pkl')
+model = joblib.load('../model/fraud_detection_model.pkl')
 
 # Load scaler and fit on known data
 scaler = StandardScaler()
@@ -21,7 +21,7 @@ app_mode = st.sidebar.selectbox("Select Page",["Home","About","Enter Data","Uplo
 #Main Page
 if(app_mode=="Home"):
     st.header("CREDIT CARD FRAUD DETECTION SYSTEM")
-    image_path = "home_page.jpeg"  # Make sure this image exists in your directory
+    image_path = "../home_page.jpeg"  # Make sure this image exists in your directory
     st.image(image_path, use_column_width=True)
     
     st.markdown("""
@@ -88,7 +88,7 @@ elif(app_mode=="Enter Data"):
         processed_data = preprocess_input(input_data)
         prediction = model.predict(processed_data)[0]
         
-        if prediction == 1:
+        if prediction == 0:
             st.error("🚨 Fraudulent Transaction Detected!")
         else:
             st.success("✅ Legitimate Transaction")
@@ -105,7 +105,7 @@ elif(app_mode=="Upload File"):
             st.success("✅ File uploaded successfully!")
 
             st.write(f"### Fraudulent Transactions:")
-            st.dataframe(df.head(4))
+            st.dataframe(df.head(2))
         except Exception as e:
             st.error(f"❌ Error reading file: {e}")
     else:
